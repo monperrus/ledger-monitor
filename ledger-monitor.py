@@ -23,6 +23,7 @@ import json
 import datetime
 import os
 
+os.chdir('/home/martin/workspace/ledger-monitor')
 # human readable
 def fetch_ledger_versions():
     url = "https://resources.live.ledger.app/public_resources/signatures/versions.json"
@@ -60,3 +61,6 @@ for x in fetch_ledger_versions():
     cmd = f"openssl dgst -sha256 -verify ledgerlive.pem -signature {sig_path} {sha_path}"
     # print(cmd)
     os.system(cmd)
+
+os.system("git add data")
+os.system("git all")
