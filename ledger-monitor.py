@@ -44,14 +44,17 @@ for x in fetch_ledger_versions():
     # Check if sha512sum file exists
     sha_path = f"data/{x}.txt"
     if not os.path.exists(sha_path):
-        shasums = requests.get(f"https://resources.live.ledger.app/public_resources/signatures/{x}").textrequests.get(f"https://resources.live.ledger.app/public_resources/signatures/{x}.sig")
+        sha_url=f"https://resources.live.ledger.app/public_resources/signatures/{x}"
+        shasums = requests.get(sha_url).text
         with open(sha_path, "w") as f:
             f.write(shasums)
     
     # Check if signature file exists
     sig_path = f"data/{x}.sig"
     if not os.path.exists(sig_path):
-        req = requests.get(f"https://resources.live.ledger.app/public_resources/signatures/{x}.sig")
+        sig_url=f"https://resources.live.ledger.app/public_resources/signatures/{x}.sig"
+        print(sig_url)
+        req = requests.get(sig_url)
         sig = req.content
         # print(x, sig)
         assert req.status_code == 200
